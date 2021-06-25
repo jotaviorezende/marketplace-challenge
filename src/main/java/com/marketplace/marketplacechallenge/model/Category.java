@@ -1,13 +1,14 @@
 package com.marketplace.marketplacechallenge.model;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
-import java.util.StringJoiner;
 
 /**
  * Entidade que representa a categoria.
@@ -26,7 +27,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name) {
+    public Category(Long id, @NotNull @Size(min = 3, max = 50) String name) {
+        this.id = id;
         this.name = name;
     }
 
