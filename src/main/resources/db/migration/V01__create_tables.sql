@@ -24,6 +24,7 @@ CREATE TABLE product (
   name VARCHAR(250) NOT NULL,
   description VARCHAR(250) NOT NULL,
   creation_date DATE NOT NULL,
+  score INT,
   category_id INT,
   FOREIGN KEY(category_id) REFERENCES category(id)
 );
@@ -36,4 +37,13 @@ CREATE TABLE sale (
   FOREIGN KEY (vendor_id) REFERENCES vendor(id),
   FOREIGN KEY (customer_id) REFERENCES customer(id),
   FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+CREATE table rating (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  score INT,
+  product_id INT,
+  sale_id INT,
+  FOREIGN KEY (product_id) REFERENCES product(id),
+  FOREIGN KEY (sale_id) REFERENCES sale(id)
 );
