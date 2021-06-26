@@ -27,7 +27,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(Long id, @NotNull @Size(min = 3, max = 50) String name) {
+    public Category(Long id, String name) {
         this.id = id;
         this.name = name;
     }

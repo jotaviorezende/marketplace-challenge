@@ -1,26 +1,27 @@
 package com.marketplace.marketplacechallenge.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.marketplace.marketplacechallenge.exception.CategoryNotFoundException;
 import com.marketplace.marketplacechallenge.exception.ProductNotFoundException;
 import com.marketplace.marketplacechallenge.model.Category;
 import com.marketplace.marketplacechallenge.model.Product;
 import com.marketplace.marketplacechallenge.repository.CategoryRepository;
 import com.marketplace.marketplacechallenge.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service public class ProductService {
 
 	public static final String CATEGORY_NOT_FOUND_MESSAGE = "A categoria %s não foi encontrada.";
 	public static final String PRODUCT_NOT_FOUND_MESSAGE = "Produto não encontrado.";
 
-	@Autowired private ProductRepository productRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
-	@Autowired private CategoryRepository categoryRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	/**
 	 * Realiza a criação de um {@link Product}.
@@ -39,9 +40,9 @@ import com.marketplace.marketplacechallenge.repository.ProductRepository;
 	}
 
 	/**
-	 * Retona todos os {@link Product} cadastrados.
+	 * Retorna todos os {@link Product} cadastrados.
 	 *
-	 * @return
+	 * @return List de {@link Product}.
 	 */
 	public List<Product> getAll() {
 		return productRepository.findAll();
@@ -71,15 +72,9 @@ import com.marketplace.marketplacechallenge.repository.ProductRepository;
 	 */
 	public Product update(Product product) {
 		Optional<Product> productOptional = productRepository.findById(product.getId());
-		Optional<Category> categoryOptional = categoryRepository.findById(product.getCategory().getId());
 
 		productOptional.orElseThrow(() -> {
 			return new ProductNotFoundException(PRODUCT_NOT_FOUND_MESSAGE);
-		});
-
-		categoryOptional.orElseThrow(() -> {
-			String message = String.format(CATEGORY_NOT_FOUND_MESSAGE, product.getCategory().getName());
-			return new CategoryNotFoundException(PRODUCT_NOT_FOUND_MESSAGE);
 		});
 
 		return createProduct(product);

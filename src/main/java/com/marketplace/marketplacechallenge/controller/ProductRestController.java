@@ -27,24 +27,24 @@ public class ProductRestController {
     private ProductConverter converter;
 
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@RequestBody ProductDto productDto) {
-        productService.createProduct(converter.toEntity(productDto));
+    public ResponseEntity<ProductDto> create(@RequestBody ProductDto productDto) {
+        Product createdProduct = productService.createProduct(converter.toEntity(productDto));
 
-        return new ResponseEntity<ProductDto>(HttpStatus.OK);
+        return new ResponseEntity<ProductDto>(converter.toDto(createdProduct), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductDto> deleteProduct(@PathVariable("id") long id) {
+    public ResponseEntity deleteProduct(@PathVariable("id") long id) {
         productService.delete(id);
 
-        return new ResponseEntity<ProductDto>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto) {
-        productService.update(converter.toEntity(productDto));
+        Product updatedProduct = productService.update(converter.toEntity(productDto));
 
-        return new ResponseEntity<ProductDto>(productDto, HttpStatus.OK);
+        return new ResponseEntity<ProductDto>(converter.toDto(updatedProduct), HttpStatus.OK);
     }
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
