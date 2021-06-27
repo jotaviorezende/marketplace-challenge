@@ -24,7 +24,7 @@ CREATE TABLE product (
   name VARCHAR(250) NOT NULL,
   description VARCHAR(250) NOT NULL,
   creation_date DATE NOT NULL,
-  score INT,
+  score FLOAT,
   category_id INT,
   FOREIGN KEY(category_id) REFERENCES category(id)
 );
@@ -42,6 +42,7 @@ CREATE TABLE sale (
 CREATE table rating (
   id INT AUTO_INCREMENT PRIMARY KEY,
   score INT,
+  creation_date DATE NOT NULL,
   product_id INT,
   sale_id INT,
   FOREIGN KEY (product_id) REFERENCES product(id),
