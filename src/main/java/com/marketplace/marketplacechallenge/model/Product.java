@@ -28,6 +28,8 @@ public class Product {
     @NotNull
     private Date creationDate;
 
+    private Float score;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -75,6 +77,14 @@ public class Product {
         this.creationDate = creationDate;
     }
 
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -93,12 +103,13 @@ public class Product {
         return Objects.equals(id, product.id) && Objects.equals(name, product.name)
                 && Objects.equals(description, product.description)
                 && Objects.equals(creationDate, product.creationDate)
+                && Objects.equals(score, product.score)
                 && Objects.equals(category, product.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, creationDate, category);
+        return Objects.hash(id, name, description, creationDate, score, category);
     }
 
     @Override
@@ -107,6 +118,7 @@ public class Product {
                 .add("name='" + name + "'")
                 .add("description='" + description + "'")
                 .add("creationDate=" + creationDate)
+                .add("score=" + score)
                 .add("category=" + category).toString();
     }
 }

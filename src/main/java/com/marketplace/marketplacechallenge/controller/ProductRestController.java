@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Disponibiliza as APIs para consumo.
+ * Disponibiliza as APIs de produto para consumo.
  */
 @RestController
 @RequestMapping(path = "/product")
