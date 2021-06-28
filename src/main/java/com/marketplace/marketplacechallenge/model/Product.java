@@ -1,5 +1,8 @@
 package com.marketplace.marketplacechallenge.model;
 
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,6 +14,8 @@ import java.util.StringJoiner;
  * Entidade que representa o Produto.
  */
 @Entity
+@Audited
+@AuditTable("product_audit")
 public class Product {
 
     @Id

@@ -48,3 +48,19 @@ CREATE table rating (
   FOREIGN KEY (product_id) REFERENCES product(id),
   FOREIGN KEY (sale_id) REFERENCES sale(id)
 );
+
+CREATE TABLE revinfo (
+  rev INT PRIMARY KEY AUTO_INCREMENT,
+  revtstmp bigint
+);
+
+CREATE TABLE product_audit (
+  id INT NOT NULL,
+  revtype int,
+  creation_date DATE NOT NULL,
+  name VARCHAR(250) NOT NULL,
+  description VARCHAR(250) NOT NULL,
+  score FLOAT,
+  category_id INT,
+  rev INT
+);

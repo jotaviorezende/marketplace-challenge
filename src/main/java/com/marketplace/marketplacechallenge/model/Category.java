@@ -1,5 +1,8 @@
 package com.marketplace.marketplacechallenge.model;
 
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -14,6 +17,8 @@ import javax.validation.constraints.Size;
  * Entidade que representa a categoria.
  */
 @Entity
+@Audited
+@AuditTable("category_audit")
 public class Category {
 
     @Id
