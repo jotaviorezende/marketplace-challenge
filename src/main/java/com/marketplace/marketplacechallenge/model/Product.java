@@ -23,11 +23,11 @@ public class Product {
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 250)
     private String name;
 
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 250)
     private String description;
 
     @NotNull

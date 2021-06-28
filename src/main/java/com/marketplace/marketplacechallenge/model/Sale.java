@@ -22,7 +22,7 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(Long id, @NotNull Product product) {
+    public Sale(Long id, Product product) {
         this.id = id;
         this.product = product;
     }
