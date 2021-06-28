@@ -14,6 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -110,6 +114,29 @@ public class ProductRestControllerTest {
         // then
         InOrder inOrder = Mockito.inOrder(productService, converter);
         inOrder.verify(productService).getAll();
+        inOrder.verify(converter).toDto(products.get(0));
+        assertEquals(productDtos, result.getBody());
+    }
+
+    @Test
+    public void testgetOrderedProducts() {
+        // given
+        int page = 0;
+        int size = 10;
+        Pageable paging = PageRequest.of(page, size);
+        List<Product> products = buildProductList();
+        List<ProductDto> productDtos = buildProductDtoList();
+        Page<Product> pageProducts = mock(Page.class);
+        given(pageProducts.getContent()).willReturn(products);
+        given(productService.getOrderedProducts(eq(paging))).willReturn(pageProducts);
+        given(converter.toDto(products.get(0))).willReturn(productDtos.get(0));
+
+        // when
+        ResponseEntity<List<ProductDto>> result = productRestController.getOrderedProducts(page, size);
+
+        // then
+        InOrder inOrder = Mockito.inOrder(productService, converter);
+        inOrder.verify(productService).getOrderedProducts(eq(paging));
         inOrder.verify(converter).toDto(products.get(0));
         assertEquals(productDtos, result.getBody());
     }

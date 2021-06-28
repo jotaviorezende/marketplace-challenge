@@ -7,6 +7,8 @@ import com.marketplace.marketplacechallenge.model.Product;
 import com.marketplace.marketplacechallenge.repository.CategoryRepository;
 import com.marketplace.marketplacechallenge.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +48,15 @@ import java.util.Optional;
 	 */
 	public List<Product> getAll() {
 		return productRepository.findAll();
+	}
+
+	/**
+	 * Retorna os produtos ordenados por score, nome e categoria.
+	 * @param paging Página contendo a quantidade e tamanho.
+	 * @return resultado da busca dos produtos.
+	 */
+	public Page<Product> getOrderedProducts(Pageable paging) {
+		return productRepository.getAllProducts(paging);
 	}
 
 	/**

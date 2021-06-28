@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +85,18 @@ public class ProductServiceTest {
 
         // then
         assertEquals(expectedProducts, result);
+    }
+
+    @Test
+    public void testGetOrderedProducts() {
+        // given
+        Pageable pageable = mock(Pageable.class);
+
+        // when
+        productService.getOrderedProducts(pageable);
+
+        // then
+        verify(productRepository).getAllProducts(pageable);
     }
 
     @Test
